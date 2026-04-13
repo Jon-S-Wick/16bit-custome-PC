@@ -1,0 +1,59 @@
+# Enter your code here for giza.x16s
+#
+#
+
+main:
+    getc
+    putc
+    ld %r4, zero
+    add %r0, %r0, %r4
+    brn out1
+    jsr multiply
+add:
+    add %r2, %r2, %r0
+    br main
+
+multiply:
+    and %r1, %r1, $0 
+    add %r1, %r1, $10
+    and %r3, %r3, $0
+    add %r3, %r2, $0
+loop:
+    # ld  %r0, star
+    # putc
+    add %r1, %r1, $-1
+    brz add
+    add %r2, %r2, %r3
+    jsr loop 
+
+out1:
+    # ld  %r0, newline
+    # putc
+    ld  %r0, leftbracket
+    putc
+
+out2:
+    add %r2, %r2, $-1
+    brn end 
+    ld  %r0, star
+    putc
+    jsr out2
+    
+end:
+    ld %r0, rightbracket
+    putc
+    ld  %r0, newline
+    putc
+    halt
+
+star:
+    val $42
+
+zero:
+    val $-48
+leftbracket:
+    val $91
+rightbracket:
+    val $93
+newline:
+    val $10    # ASCII 10 is the \n character
